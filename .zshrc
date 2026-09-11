@@ -255,7 +255,7 @@ copilot () {
 
 # Обновление конфигурации zsh из GitHub
 zsh-update () {
-    local ConfigUrl='https://raw.githubusercontent.com/Suntechnic/howto/refs/heads/main/hosts/files/.zshrc'
+    local ConfigUrl='https://raw.githubusercontent.com/Suntechnic/env/refs/heads/main/.zshrc'
     local TempFile
     local BackupFile="$HOME/.zshrc.bak"
 
