@@ -35,5 +35,5 @@ guake --save-preferences="~/projects/env$/guake/preferences.conf"
 
 ```bash
 wget https://raw.githubusercontent.com/Suntechnic/env/refs/heads/main/guake/preferences.conf -O /tmp/preferences.conf;
-guake --load-preferences="/tmp/preferences.conf"
+guake --restore-preferences="/tmp/preferences.conf"
 ```
