@@ -301,3 +301,13 @@ zsh-update () {
 
     exec zsh
 }
+
+# Команды повседневной работы
+
+git() {
+    if [[ "$1" == "pull" ]]; then
+        command git submodule update --init --remote --recursive || return $?
+    fi
+
+    command git "$@"
+}
