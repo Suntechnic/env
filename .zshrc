@@ -307,6 +307,20 @@ zsh-update () {
 git() {
     if [[ "$1" == "pull" ]]; then
         command git submodule update --init --remote --rebase --recursive || return $?
+
+        command git pull "${@:2}"
+        PullStatus=$?
+
+        if [[ "$PullStatus" -eq 0 ]]; then
+            HooksDirectory=$(command git rev-parse --git-path hooks)
+            HookPath="$HooksDirectory/post-merge"
+
+            if [[ -x "$HookPath" ]]; then
+                "$HookPath"
+            fi
+        fi
+
+        return "$PullStatus"
     fi
 
     command git "$@"
