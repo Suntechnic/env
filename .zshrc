@@ -306,7 +306,7 @@ zsh-update () {
 
 git() {
     if [[ "$1" == "pull" ]]; then
-        command git submodule update --init --remote --recursive || return $?
+        command git submodule update --init --remote --rebase --recursive || return $?
     fi
 
     command git "$@"
