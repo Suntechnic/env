@@ -224,8 +224,18 @@ else
     PROMPT_SYMBOL='%F{cyan}❯%f'
 fi
 
+if [[ -n "$STY" ]]; then
+    PROMPT_SCREEN=" %F{yellow}screen:${STY#*.}%f"
+else
+    PROMPT_SCREEN=''
+fi
+
+# PROMPT='
+# ${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}
+# %(?..%F{red}↳ %?%f )${PROMPT_SYMBOL} '
+
 PROMPT='
-${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}
+${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}${PROMPT_SCREEN}
 %(?..%F{red}↳ %?%f )${PROMPT_SYMBOL} '
 
 RPROMPT='%F{242}%D{%H:%M}%f'
