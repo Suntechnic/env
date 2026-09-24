@@ -1,4 +1,8 @@
-# Настройка плагинов для zsh
+# Основное
+export EDITOR=micro
+export VISUAL=micro
+
+# Настройка плагинов для zsh;
 ZSH_PLUGINS_DIR="$HOME/.config/zsh/plugins"
 ZSH_PLUGINS_UPDATE_FILE="$HOME/.cache/zsh/plugins-last-update"
 ZSH_PLUGINS_UPDATE_INTERVAL=604800
