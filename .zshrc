@@ -339,3 +339,9 @@ git() {
 
     command git "$@"
 }
+
+
+# Настройки конкретной машины
+if [[ -r "$HOME/.zshrc.local" ]]; then
+    source "$HOME/.zshrc.local"
+fi
