@@ -217,18 +217,20 @@ precmd () {
 }
 
 if (( EUID == 0 )); then
-    PROMPT_IDENTITY='%F{red}%n@%m%f'
+    PROMPT_USER='%F{red}%n%f'
     PROMPT_SYMBOL='%F{red}❯%f'
 else
-    PROMPT_IDENTITY='%F{green}%n@%m%f'
+    PROMPT_USER='%F{green}%n%f'
     PROMPT_SYMBOL='%F{cyan}❯%f'
 fi
 
-if [[ -n "$STY" ]]; then
-    PROMPT_SCREEN=" %F{yellow}screen:${STY#*.}%f"
+if [[ "${HOST%%.*}" == *-prod ]]; then
+    PROMPT_HOST='%F{red}%m%f'
 else
-    PROMPT_SCREEN=''
+    PROMPT_HOST='%F{green}%m%f'
 fi
+
+PROMPT_IDENTITY="${PROMPT_USER}@${PROMPT_HOST}"
 
 # PROMPT='
 # ${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}
