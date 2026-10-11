@@ -270,14 +270,14 @@ if (( EUID == 0 )); then
     PROMPT_SYMBOL='%F{red}❯%f'
 else
     PROMPT_USER='%F{green}%n%f'
-    PROMPT_SYMBOL='%F{cyan}❯%f'
+    PROMPT_SYMBOL='%F{green}❯%f'
 fi
 
 # Хост
 if [[ "${HOST%%.*}" == *-prod ]]; then
     PROMPT_HOST='%F{red}%m%f'
 elif [[ "${HOST%%.*}" == *-dev ]]; then
-    PROMPT_HOST='%F{cyan}%m%f'
+    PROMPT_HOST='%F{blue}%m%f'
 else
     PROMPT_HOST='%F{green}%m%f'
 fi
@@ -293,7 +293,7 @@ fi
 
 PROMPT='
 ${PROMPT_EXIT}%F{242}%D{%H:%M}%f${PROMPT_DURATION}
-${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}${PROMPT_SCREEN}
+${PROMPT_IDENTITY} %F{cyan}%~%f${vcs_info_msg_0_}${PROMPT_SCREEN}
 ${PROMPT_SYMBOL} '
 
 RPROMPT=''
