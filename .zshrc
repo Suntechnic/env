@@ -205,25 +205,75 @@ bindkey '\eOA' history-substring-search-up
 bindkey '\eOB' history-substring-search-down
 
 # Prompt
-autoload -Uz colors vcs_info
+autoload -Uz colors vcs_info add-zsh-hook
 colors
+zmodload zsh/datetime
 
 setopt prompt_subst
-zstyle ':vcs_info:git:*' formats ' %F{magenta}git:%b%f'
-zstyle ':vcs_info:*' enable git
 
-precmd () {
-    vcs_info
+# Git: ветка, изменения и текущая операция
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:git:*' stagedstr ' %F{green}+%f'
+zstyle ':vcs_info:git:*' unstagedstr ' %F{yellow}*%f'
+zstyle ':vcs_info:git:*' formats \
+    ' %F{magenta}git:%b%f%c%u'
+zstyle ':vcs_info:git:*' actionformats \
+    ' %F{magenta}git:%b%f %F{red}[%a]%f%c%u'
+
+# Удаление прежнего обработчика при повторном source ~/.zshrc
+unfunction precmd 2>/dev/null
+
+typeset -gF PROMPT_COMMAND_STARTED=0
+typeset -g PROMPT_DURATION=''
+typeset -g PROMPT_EXIT=''
+
+prompt-command-start () {
+    PROMPT_COMMAND_STARTED=$EPOCHREALTIME
 }
 
+prompt-command-finish () {
+    local ExitCode=$?
+    local -F Elapsed
+    local Duration
+
+    PROMPT_EXIT=''
+    PROMPT_DURATION=''
+
+    if (( ExitCode != 0 )); then
+        PROMPT_EXIT="%F{red}↳ ${ExitCode}%f "
+    fi
+
+    if (( PROMPT_COMMAND_STARTED > 0 )); then
+        Elapsed=$(( EPOCHREALTIME - PROMPT_COMMAND_STARTED ))
+
+        if (( Elapsed > 3 )); then
+            printf -v Duration '%.1f' "$Elapsed"
+            PROMPT_DURATION=" %F{yellow}⏱ ${Duration}s%f"
+        fi
+    fi
+
+    PROMPT_COMMAND_STARTED=0
+    vcs_info
+    return 0
+}
+
+# Повторное подключение конфигурации не дублирует обработчики
+add-zsh-hook -d preexec prompt-command-start
+add-zsh-hook -d precmd prompt-command-finish
+add-zsh-hook preexec prompt-command-start
+add-zsh-hook precmd prompt-command-finish
+
+# Пользователь и символ приглашения
 if (( EUID == 0 )); then
     PROMPT_USER='%F{red}%n%f'
     PROMPT_SYMBOL='%F{red}❯%f'
 else
     PROMPT_USER='%F{green}%n%f'
-    PROMPT_SYMBOL='%F{green}❯%f'
+    PROMPT_SYMBOL='%F{cyan}❯%f'
 fi
 
+# Хост
 if [[ "${HOST%%.*}" == *-prod ]]; then
     PROMPT_HOST='%F{red}%m%f'
 elif [[ "${HOST%%.*}" == *-dev ]]; then
@@ -234,12 +284,15 @@ fi
 
 PROMPT_IDENTITY="${PROMPT_USER}@${PROMPT_HOST}"
 
-# PROMPT='
-# ${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}
-# %(?..%F{red}↳ %?%f )${PROMPT_SYMBOL} '
+# Сессия screen
+if [[ -n "$STY" ]]; then
+    PROMPT_SCREEN=" %F{yellow}screen:${STY#*.}%f"
+else
+    PROMPT_SCREEN=''
+fi
 
 PROMPT='
-%(?..%F{red}↳ %?%f )%F{242}%D{%H:%M}%f
+${PROMPT_EXIT}%F{242}%D{%H:%M}%f${PROMPT_DURATION}
 ${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}${PROMPT_SCREEN}
 ${PROMPT_SYMBOL} '
 
