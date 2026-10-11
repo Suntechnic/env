@@ -226,7 +226,7 @@ fi
 
 if [[ "${HOST%%.*}" == *-prod ]]; then
     PROMPT_HOST='%F{red}%m%f'
-else if [[ "${HOST%%.*}" == *-dev ]]; then
+elif [[ "${HOST%%.*}" == *-dev ]]; then
     PROMPT_HOST='%F{cyan}%m%f'
 else
     PROMPT_HOST='%F{green}%m%f'
