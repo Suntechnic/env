@@ -226,6 +226,14 @@ fi
 
 if [[ "${HOST%%.*}" == *-prod ]]; then
     PROMPT_HOST='%F{red}%m%f'
+else if [[ "${HOST%%.*}" == *-dev ]]; then
+    PROMPT_HOST='%F{cyan}%m%f'
+else
+    PROMPT_HOST='%F{green}%m%f'
+fi
+
+if [[ "${HOST%%.*}" == *-dev ]]; then
+    PROMPT_HOST='%F{red}%m%f'
 else
     PROMPT_HOST='%F{green}%m%f'
 fi
@@ -237,10 +245,11 @@ PROMPT_IDENTITY="${PROMPT_USER}@${PROMPT_HOST}"
 # %(?..%F{red}↳ %?%f )${PROMPT_SYMBOL} '
 
 PROMPT='
+%(?..%F{red}↳ %?%f )%F{242}%D{%H:%M}%f
 ${PROMPT_IDENTITY} %F{blue}%~%f${vcs_info_msg_0_}${PROMPT_SCREEN}
-%(?..%F{red}↳ %?%f )${PROMPT_SYMBOL} '
+${PROMPT_SYMBOL} '
 
-RPROMPT='%F{242}%D{%H:%M}%f'
+RPROMPT=''
 
 # Подсветка синтаксиса: всегда последней
 if [[ -r "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
