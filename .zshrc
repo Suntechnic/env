@@ -247,7 +247,7 @@ prompt-command-finish () {
     if (( PROMPT_COMMAND_STARTED > 0 )); then
         Elapsed=$(( EPOCHREALTIME - PROMPT_COMMAND_STARTED ))
 
-        if (( Elapsed > 3 )); then
+        if (( Elapsed > 1 )); then
             printf -v Duration '%.1f' "$Elapsed"
             PROMPT_DURATION=" %F{yellow}⏱ ${Duration}s%f"
         fi
