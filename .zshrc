@@ -221,19 +221,13 @@ if (( EUID == 0 )); then
     PROMPT_SYMBOL='%F{red}❯%f'
 else
     PROMPT_USER='%F{green}%n%f'
-    PROMPT_SYMBOL='%F{cyan}❯%f'
+    PROMPT_SYMBOL='%F{green}❯%f'
 fi
 
 if [[ "${HOST%%.*}" == *-prod ]]; then
     PROMPT_HOST='%F{red}%m%f'
 else if [[ "${HOST%%.*}" == *-dev ]]; then
     PROMPT_HOST='%F{cyan}%m%f'
-else
-    PROMPT_HOST='%F{green}%m%f'
-fi
-
-if [[ "${HOST%%.*}" == *-dev ]]; then
-    PROMPT_HOST='%F{red}%m%f'
 else
     PROMPT_HOST='%F{green}%m%f'
 fi
@@ -325,30 +319,6 @@ zsh-update () {
     print -P "%F{green}✓ zsh:%f конфигурация и плагины обновлены"
 
     exec zsh
-}
-
-# Команды повседневной работы
-
-git() {
-    if [[ "$1" == "pull" ]]; then
-        command git submodule update --init --remote --rebase --recursive || return $?
-
-        command git pull "${@:2}"
-        PullStatus=$?
-
-        if [[ "$PullStatus" -eq 0 ]]; then
-            HooksDirectory=$(command git rev-parse --git-path hooks)
-            HookPath="$HooksDirectory/post-merge"
-
-            if [[ -x "$HookPath" ]]; then
-                "$HookPath"
-            fi
-        fi
-
-        return "$PullStatus"
-    fi
-
-    command git "$@"
 }
 
 
