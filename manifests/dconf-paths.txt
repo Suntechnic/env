@@ -1,0 +1,9 @@
+/org/gnome/desktop/interface/
+/org/gnome/desktop/input-sources/
+/org/gnome/desktop/wm/keybindings/
+/org/gnome/desktop/wm/preferences/
+/org/gnome/settings-daemon/plugins/media-keys/
+/org/gnome/shell/keybindings/
+/org/gnome/shell/extensions/
+/org/gnome/nautilus/preferences/
+/org/guake/
