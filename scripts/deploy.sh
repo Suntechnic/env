@@ -40,6 +40,25 @@ fi
 while IFS= read -r path || [[ -n "$path" ]]; do
     [[ -z "$path" || "$path" == \#* ]] && continue
     [[ "$path" != /* && "$path" != *..* ]] || exit 1
+    if [[ "$path" == */ ]]; then
+        rel="${path%/}"
+        [[ -d "$SRC/home/$rel" ]] || continue
+
+        echo "Папка: ~/$rel/"
+        if [[ "$MODE" == "--apply" ]]; then
+            if [[ -e "$HOME/$rel" || -L "$HOME/$rel" ]]; then
+                mkdir -p "$BACKUP/home/$(dirname -- "$rel")"
+                cp -a -- "$HOME/$rel" "$BACKUP/home/$(dirname -- "$rel")/"
+            else
+                echo "$rel/" >> "$BACKUP/previously-absent.txt"
+            fi
+
+            mkdir -p "$HOME/$rel"
+            cp -a -- "$SRC/home/$rel/." "$HOME/$rel/"
+        fi
+        continue
+    fi
+
     [[ -f "$SRC/home/$path" ]] || continue
 
     echo "Файл: ~/$path"

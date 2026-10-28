@@ -1,0 +1,5 @@
+/org/gnome/desktop/wm/keybindings/
+/org/gnome/desktop/wm/preferences/
+/org/gnome/settings-daemon/plugins/media-keys/
+/org/gnome/shell/extensions/gtile/
+/org/guake/

@@ -1,2 +1,3 @@
 .zshrc
-.config/starship.toml
+.config/micro/colorschemes/
+.config/micro/settings.json

@@ -1,0 +1,3 @@
+.zshrc
+.config/micro/colorschemes/
+.config/micro/settings.json

@@ -28,7 +28,15 @@ while IFS= read -r path || [[ -n "$path" ]]; do
     [[ -z "$path" || "$path" == \#* ]] && continue
     [[ "$path" != /* && "$path" != *..* ]] || exit 1
 
-    if [[ -f "$HOME/$path" ]]; then
+    if [[ "$path" == */ ]]; then
+        rel="${path%/}"
+        if [[ -d "$HOME/$rel" ]]; then
+            mkdir -p "$TMP/home/$(dirname -- "$rel")"
+            cp -RL -- "$HOME/$rel" "$TMP/home/$(dirname -- "$rel")/"
+        else
+            echo "Пропущена отсутствующая папка: $path"
+        fi
+    elif [[ -f "$HOME/$path" ]]; then
         mkdir -p "$TMP/home/$(dirname -- "$path")"
         cp -L -- "$HOME/$path" "$TMP/home/$path"
     else
@@ -48,12 +56,19 @@ gnome-extensions list --enabled | sort > "$TMP/extensions/enabled.txt"
 gnome-shell --version > "$TMP/metadata/gnome.txt"
 cp /etc/os-release "$TMP/metadata/os-release"
 
-if [[ -e "$DEST" ]]; then
-    PREVIOUS="$(mktemp -d "$ROOT/.snapshot-previous.XXXXXX")"
-    mv -- "$DEST" "$PREVIOUS/snapshot"
-    echo "Предыдущий сбор сохранён: $PREVIOUS"
+# Защита от утечки: снимок в репозитории не должен содержать адреса, пути,
+# сертификаты, ключи и имена машин/устройств. При совпадении сбор прерывается.
+leak_pattern='([0-9]{1,3}\.){3}[0-9]{1,3}|/home/|BEGIN [A-Z ]*(KEY|CERTIFICATE)|lan://|gsconnect/device|kdeconnect\.|PRIVATE KEY'
+if grep -rEi -- "$leak_pattern" "$TMP"; then
+    echo "Найдены возможные персональные данные (см. выше), сбор прерван." >&2
+    exit 1
+fi
+if grep -rFi -- "$(hostname)" "$TMP"; then
+    echo "Найдено имя этой машины (см. выше), сбор прерван." >&2
+    exit 1
 fi
 
+rm -rf -- "$DEST"
 mv -- "$TMP" "$DEST"
 trap - EXIT
 

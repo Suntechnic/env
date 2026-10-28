@@ -1,0 +1,15 @@
+apps-menu@gnome-shell-extensions.gcampax.github.com
+bitcoin-markets@ottoallmendinger.github.com
+caffeine@patapon.info
+clipboard-history@alexsaveau.dev
+crypto@alipirpiran.github
+ding@rastersoft.com
+gsconnect@andyholmes.github.io
+gTile@vibou
+IP-Finder@linxgem33.com
+krypto@sereneblue
+public-ip-address@theophilediot.github.io
+tiling-assistant@ubuntu.com
+ubuntu-appindicators@ubuntu.com
+ubuntu-dock@ubuntu.com
+workrave@workrave.org

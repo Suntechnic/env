@@ -1,0 +1,9 @@
+apps-menu@gnome-shell-extensions.gcampax.github.com
+bitcoin-markets@ottoallmendinger.github.com
+clipboard-history@alexsaveau.dev
+gsconnect@andyholmes.github.io
+gTile@vibou
+IP-Finder@linxgem33.com
+tiling-assistant@ubuntu.com
+ubuntu-appindicators@ubuntu.com
+ubuntu-dock@ubuntu.com
