@@ -58,7 +58,7 @@ cp /etc/os-release "$TMP/metadata/os-release"
 
 # Защита от утечки: снимок в репозитории не должен содержать адреса, пути,
 # сертификаты, ключи и имена машин/устройств. При совпадении сбор прерывается.
-leak_pattern='([0-9]{1,3}\.){3}[0-9]{1,3}|/home/|BEGIN [A-Z ]*(KEY|CERTIFICATE)|lan://|gsconnect/device|kdeconnect\.|PRIVATE KEY'
+leak_pattern='([0-9]{1,3}\.){3}[0-9]{1,3}|/home/[^/[:space:]]+/|BEGIN [A-Z ]*(KEY|CERTIFICATE)|lan://|gsconnect/device|kdeconnect\.|PRIVATE KEY'
 if grep -rEi -- "$leak_pattern" "$TMP"; then
     echo "Найдены возможные персональные данные (см. выше), сбор прерван." >&2
     exit 1
