@@ -3,3 +3,4 @@
 /org/gnome/settings-daemon/plugins/media-keys/
 /org/gnome/shell/extensions/gtile/
 /org/guake/
+/org/gnome/desktop/input-sources/
