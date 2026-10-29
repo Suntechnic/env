@@ -92,6 +92,16 @@ cd /path/to/env
 
 **Примечание:** Развертывание может потребовать выхода из сеанса GNOME для применения некоторых настроек.
 
+### Быстрый деплой одной командой
+
+Скачивает репозиторий с GitHub во временную папку, применяет настройки и удаляет папку:
+
+```bash
+d=$(mktemp -d /tmp/env-deploy.XXXXXX) && curl -fsSL https://github.com/Suntechnic/env/archive/refs/heads/main.tar.gz | tar -xz -C "$d" && "$d"/env-main/scripts/deploy.sh --apply; rm -rf "$d"
+```
+
+Для предварительного просмотра замените `--apply` на `--dry-run`.
+
 ## Пример работы
 
 ```bash
