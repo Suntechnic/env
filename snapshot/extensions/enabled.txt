@@ -3,7 +3,7 @@ bitcoin-markets@ottoallmendinger.github.com
 clipboard-history@alexsaveau.dev
 gsconnect@andyholmes.github.io
 gTile@vibou
-IP-Finder@linxgem33.com
+public-ip-address@theophilediot.github.io
 tiling-assistant@ubuntu.com
 ubuntu-appindicators@ubuntu.com
 ubuntu-dock@ubuntu.com
