@@ -28,7 +28,7 @@ dconf load /org/gnome/shell/extensions/gtile/ < /tmp/org-gnome-shell-extensions-
 ### Экспорт в главной системе
 
 ```bash
-guake --save-preferences="~/projects/env$/guake/preferences.conf"
+guake --save-preferences="$HOME/projects/env/guake/preferences.conf"
 ```
 
 ### Импорт

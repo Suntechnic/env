@@ -4,3 +4,5 @@
 /org/gnome/shell/extensions/gtile/
 /org/guake/
 /org/gnome/desktop/input-sources/
+/org/gnome/mutter/
+/org/gnome/shell/extensions/tiling-assistant/

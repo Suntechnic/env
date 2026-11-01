@@ -2,3 +2,8 @@
 .face
 .config/micro/colorschemes/
 .config/micro/settings.json
+.config/micro/bindings.json
+.config/tiling-assistant/layouts.json
+.lbin/gnome-workspace-switcher
+.lbin/gnome-workspace-overview
+.xbindkeysrc

@@ -75,7 +75,7 @@ while IFS= read -r path || [[ -n "$path" ]]; do
 
         mkdir -p "$HOME/$(dirname -- "$path")"
         tmp="$(mktemp "$HOME/$(dirname -- "$path")/.env-deploy.XXXXXX")"
-        cp -- "$SRC/home/$path" "$tmp"
+        cp --preserve=mode -- "$SRC/home/$path" "$tmp"
         mv -fT -- "$tmp" "$HOME/$path"
     fi
 done < "$SRC/files.txt"
