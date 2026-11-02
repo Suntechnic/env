@@ -1,0 +1,16 @@
+# Инструменты, которые ставит scripts/bootstrap.sh и проверяет scripts/doctor.sh.
+# Формат: имя|пакет Debian/Ubuntu|пакет CentOS/AlmaLinux|бинарник
+#
+# micro в репозиториях CentOS/AlmaLinux отсутствует — bootstrap.sh
+# в этом случае ставит статический бинарник с GitHub.
+curl|curl|curl|curl
+zsh|zsh|zsh|zsh
+git|git|git|git
+screen|screen|screen|screen
+htop|htop|htop|htop
+micro|micro|micro|micro
+ufw|ufw|ufw|ufw
+netcat|netcat-openbsd|nmap-ncat|nc
+dnsutils|dnsutils|bind-utils|dig
+ranger|ranger|ranger|ranger
+ripgrep|ripgrep|ripgrep|rg
